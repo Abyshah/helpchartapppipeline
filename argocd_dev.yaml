@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: decapp
+  namespace: argocd  # Ensure this matches the namespace where ArgoCD is installed
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Abyshah/helmchartapp
+    path: app1
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values_dev.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
